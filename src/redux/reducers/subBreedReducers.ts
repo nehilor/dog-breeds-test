@@ -10,7 +10,6 @@ import {
 const initialState: SubBreedState = {
   breed: "",
   subBreed: "",
-  images: [],
   loading: false,
   error: null,
 };
@@ -26,7 +25,6 @@ const subBreedReducer = (
       return {
         breed: action.payload.breed,
         subBreed: action.payload.subBreed,
-        images: action.payload.images,
         loading: false,
         error: null,
       };

@@ -6,9 +6,6 @@ export const SELECT_BREED = "SELECT_BREED";
 
 export interface BreedState {
   breed: string;
-  breeds: [];
-  subBreeds: string[];
-  images: string[];
   loading: boolean;
   error: string | null;
 }
@@ -20,7 +17,7 @@ interface FetchBreedRequestAction {
 interface FetchBreedSuccessAction {
   type: typeof FETCH_BREED_SUCCESS;
   payload: {
-    breed: string;
+    breeds: [];
   };
 }
 

@@ -1,7 +1,6 @@
 export interface SubBreedState {
   breed: string;
   subBreed: string;
-  images: string[];
   loading: boolean;
   error: string | null;
 }
@@ -21,7 +20,6 @@ interface FetchSubBreedSuccessAction {
   payload: {
     breed: string;
     subBreed: string;
-    images: string[];
   };
 }
 

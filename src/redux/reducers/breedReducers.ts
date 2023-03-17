@@ -10,11 +10,8 @@ import {
 
 const initialState: BreedState = {
   breed: "",
-  breeds: [],
-  subBreeds: [],
   loading: false,
   error: null,
-  images: [],
 };
 
 const breedReducer = (state = initialState, action: AnyAction): BreedState => {
@@ -32,7 +29,6 @@ const breedReducer = (state = initialState, action: AnyAction): BreedState => {
     case FETCH_BREED_SUCCESS:
       return {
         ...state,
-        subBreeds: action.payload.subBreeds,
         loading: false,
       };
     case FETCH_BREED_FAILURE:
