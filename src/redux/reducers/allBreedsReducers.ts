@@ -13,6 +13,7 @@ const initialState: AllBreedsState = {
 };
 
 const allBreedReducer = (state = initialState, action: AnyAction): AllBreedsState => {
+  //console.log('allBreedReducer action => ', action);
   switch (action.type) {
     case FETCH_ALL_BREEDS_REQUEST:
       return {
@@ -22,6 +23,7 @@ const allBreedReducer = (state = initialState, action: AnyAction): AllBreedsStat
     case FETCH_ALL_BREEDS_SUCCESS:
       return {
         ...state,
+        breeds: action.payload,
         loading: false,
       };
     case FETCH_ALL_BREEDS_FAILURE:
