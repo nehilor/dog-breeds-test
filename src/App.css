@@ -28,6 +28,11 @@
   color: #61dafb;
 }
 
+.breeds-list {
+  max-height: 50%;
+  overflow: auto;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

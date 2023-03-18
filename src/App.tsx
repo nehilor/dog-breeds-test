@@ -1,10 +1,14 @@
-import React from 'react';
-import './App.css';
-import AllBreeds from './components/AllBreeds';
+import React from "react";
+import "./App.css";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme";
+import AllBreeds from "./components/AllBreeds";
 
 function App() {
   return (
-    <AllBreeds />
+    <ThemeProvider theme={theme}>
+      <AllBreeds />
+    </ThemeProvider>
   );
 }
 
