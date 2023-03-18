@@ -7,7 +7,7 @@ import {
 } from '../types/breedTypes';
 import { getBreed } from '../../api/api';
 
-export const fetchSubBreed = (breedType: string): any => {
+export const fetchBreed = (breedType: string): any => {
   return async (dispatch: Dispatch<BreedActionTypes>): Promise<void> => {
     dispatch({ type: FETCH_BREED_REQUEST });
     try {

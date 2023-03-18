@@ -9,7 +9,7 @@ const theme = createTheme({
       main: common.white,
     },
     secondary: {
-      main: lightGreen[600],
+      main: lightGreen[200],
     },
   },
   spacing: 10,

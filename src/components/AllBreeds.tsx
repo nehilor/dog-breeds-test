@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store/store";
 import { fetchAllBreeds } from "../redux/actions/allBreedsActions";
-import { fetchSubBreed } from "../redux/actions/breedActions";
+import { fetchBreed } from "../redux/actions/breedActions";
+import { fetchSubBreed } from "../redux/actions/subBreedActions";
 import {
+  Button,
   Container,
   Typography,
   Box,
@@ -11,6 +13,7 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 const AllBreeds = () => {
   const dispatch = useDispatch();
@@ -18,12 +21,12 @@ const AllBreeds = () => {
     (state: RootState) => state.allBreeds
   );
   const { breed } = useSelector((state: RootState) => state.breed);
+  const { images } = useSelector((state: RootState) => state.subBreed);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [selectedBreed, setSelectedBreed] = useState("");
   const [selectedSubBreed, setSelectedSubBreed] = useState("");
 
-  // console.log({ breeds, loading, error });
-  console.log({ breed });
+  console.log({ images });
 
   useEffect(() => {
     if (!dataLoaded) {
@@ -34,17 +37,32 @@ const AllBreeds = () => {
 
   useEffect(() => {
     if (selectedBreed) {
-      dispatch(fetchSubBreed(selectedBreed));
+      dispatch(fetchBreed(selectedBreed));
     }
   }, [dispatch, selectedBreed]);
+
+  useEffect(() => {
+    if (selectedBreed && selectedSubBreed) {
+      dispatch(fetchSubBreed(selectedBreed, selectedSubBreed));
+    }
+  }, [dispatch, selectedBreed, selectedSubBreed]);
 
   const handleBreedClick = (breed: string) => {
     setSelectedBreed(breed);
   };
 
   const handleSubBreedClick = (breed: string) => {
-    console.log('subBreed => ', breed);
+    console.log("subBreed => ", breed);
     setSelectedSubBreed(breed);
+  };
+
+  const handleClickBreedBackBtn = () => {
+    setSelectedBreed("");
+  };
+
+  const handleClickSubBreedBackBtn = () => {
+    setSelectedSubBreed("");
+    setSelectedBreed("");
   };
 
   return (
@@ -70,6 +88,50 @@ const AllBreeds = () => {
         >
           Selected Breed: {selectedBreed}
         </Typography>
+        <Typography
+          variant="subtitle1"
+          sx={{ mb: 2, textTransform: "capitalize" }}
+        >
+          Selected Sub-Breed: {selectedSubBreed}
+        </Typography>
+        <Box sx={{ p: 1, textAlign: "center" }}>
+          {selectedBreed && !selectedSubBreed && (
+            <Button
+            onClick={handleClickBreedBackBtn}
+            sx={{
+              color: "#000",
+              border: "1px solid #c5e1a5",
+            }}
+            variant="outlined"
+          >
+            <ArrowBackIosIcon
+              sx={{
+                color: "#c5e1a5",
+              }}
+              fontSize="small"
+            />
+            Back{" "}
+          </Button>
+          )}
+          {selectedBreed && selectedSubBreed && (
+            <Button
+            onClick={handleClickSubBreedBackBtn}
+            sx={{
+              color: "#000",
+              border: "1px solid #c5e1a5",
+            }}
+            variant="outlined"
+          >
+            <ArrowBackIosIcon
+              sx={{
+                color: "#c5e1a5",
+              }}
+              fontSize="small"
+            />
+            Back{" "}
+          </Button>
+          )}
+        </Box>
         {!selectedBreed && (
           <List
             className="breeds-list"
@@ -86,7 +148,7 @@ const AllBreeds = () => {
             ))}
           </List>
         )}
-        {selectedBreed && (
+        {selectedBreed && !selectedSubBreed && (
           <List
             className="breeds-list"
             sx={{ maxHeight: 400, borderColor: "secondary" }}

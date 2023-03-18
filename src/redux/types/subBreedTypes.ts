@@ -1,6 +1,5 @@
 export interface SubBreedState {
-  breed: string;
-  subBreed: string;
+  images: string[],
   loading: boolean;
   error: string | null;
 }
@@ -17,10 +16,7 @@ interface FetchSubBreedRequestAction {
 
 interface FetchSubBreedSuccessAction {
   type: typeof FETCH_SUB_BREED_SUCCESS;
-  payload: {
-    breed: string;
-    subBreed: string;
-  };
+  payload: string[];
 }
 
 interface FetchSubBreedFailureAction {
@@ -28,13 +24,7 @@ interface FetchSubBreedFailureAction {
   payload: string;
 }
 
-interface SelectSubBreedAction {
-  type: typeof SELECT_SUB_BREED;
-  payload: string;
-}
-
 export type SubBreedActionTypes =
   | FetchSubBreedRequestAction
   | FetchSubBreedSuccessAction
-  | FetchSubBreedFailureAction
-  | SelectSubBreedAction;
+  | FetchSubBreedFailureAction;
