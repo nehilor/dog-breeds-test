@@ -13,7 +13,6 @@ export const fetchSubBreed = (breed: string, subBreed: string): any => {
     try {
       const response = await getSubBreedImages(breed, subBreed);
       const images = response.message;
-      console.log("images => ", images);
       dispatch({
         type: FETCH_SUB_BREED_SUCCESS,
         payload: images,

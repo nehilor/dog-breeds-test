@@ -5,13 +5,16 @@ import { fetchAllBreeds } from "../redux/actions/allBreedsActions";
 import { fetchBreed } from "../redux/actions/breedActions";
 import { fetchSubBreed } from "../redux/actions/subBreedActions";
 import {
+  Box,
   Button,
   Container,
-  Typography,
-  Box,
+  Card,
+  CardMedia,
   List,
   ListItem,
   ListItemText,
+  Grid,
+  Typography,
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
@@ -23,10 +26,8 @@ const AllBreeds = () => {
   const { breed } = useSelector((state: RootState) => state.breed);
   const { images } = useSelector((state: RootState) => state.subBreed);
   const [dataLoaded, setDataLoaded] = useState(false);
-  const [selectedBreed, setSelectedBreed] = useState("");
-  const [selectedSubBreed, setSelectedSubBreed] = useState("");
-
-  console.log({ images });
+  const [ selectedBreed, setSelectedBreed ] = useState("");
+  const [ selectedSubBreed, setSelectedSubBreed ] = useState("");
 
   useEffect(() => {
     if (!dataLoaded) {
@@ -52,7 +53,6 @@ const AllBreeds = () => {
   };
 
   const handleSubBreedClick = (breed: string) => {
-    console.log("subBreed => ", breed);
     setSelectedSubBreed(breed);
   };
 
@@ -62,7 +62,6 @@ const AllBreeds = () => {
 
   const handleClickSubBreedBackBtn = () => {
     setSelectedSubBreed("");
-    setSelectedBreed("");
   };
 
   return (
@@ -97,39 +96,39 @@ const AllBreeds = () => {
         <Box sx={{ p: 1, textAlign: "center" }}>
           {selectedBreed && !selectedSubBreed && (
             <Button
-            onClick={handleClickBreedBackBtn}
-            sx={{
-              color: "#000",
-              border: "1px solid #c5e1a5",
-            }}
-            variant="outlined"
-          >
-            <ArrowBackIosIcon
+              onClick={handleClickBreedBackBtn}
               sx={{
-                color: "#c5e1a5",
+                color: "#000",
+                border: "1px solid #c5e1a5",
               }}
-              fontSize="small"
-            />
-            Back{" "}
-          </Button>
+              variant="outlined"
+            >
+              <ArrowBackIosIcon
+                sx={{
+                  color: "#c5e1a5",
+                }}
+                fontSize="small"
+              />
+              Back
+            </Button>
           )}
           {selectedBreed && selectedSubBreed && (
             <Button
-            onClick={handleClickSubBreedBackBtn}
-            sx={{
-              color: "#000",
-              border: "1px solid #c5e1a5",
-            }}
-            variant="outlined"
-          >
-            <ArrowBackIosIcon
+              onClick={handleClickSubBreedBackBtn}
               sx={{
-                color: "#c5e1a5",
+                color: "#000",
+                border: "1px solid #c5e1a5",
               }}
-              fontSize="small"
-            />
-            Back{" "}
-          </Button>
+              variant="outlined"
+            >
+              <ArrowBackIosIcon
+                sx={{
+                  color: "#c5e1a5",
+                }}
+                fontSize="small"
+              />
+              Back
+            </Button>
           )}
         </Box>
         {!selectedBreed && (
@@ -148,11 +147,20 @@ const AllBreeds = () => {
             ))}
           </List>
         )}
+
         {selectedBreed && !selectedSubBreed && (
           <List
             className="breeds-list"
             sx={{ maxHeight: 400, borderColor: "secondary" }}
           >
+            {!breed.length && (
+              <Typography
+                variant="subtitle1"
+                sx={{ mb: 2, textTransform: "capitalize" }}
+              >
+                There are no sub breeds to show.
+              </Typography>
+            )}
             {breed.map((subBreed: string) => (
               <ListItem key={subBreed} selected={selectedBreed === subBreed}>
                 <ListItemText
@@ -163,6 +171,30 @@ const AllBreeds = () => {
               </ListItem>
             ))}
           </List>
+        )}
+
+        {selectedBreed && selectedSubBreed && (
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              maxHeight: 400,
+              overflow: "auto",
+              marginTop: 1,
+            }}
+          >
+            {images.map((url: string, index: number) => (
+              <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                <Card>
+                  <CardMedia
+                    component="img"
+                    image={url}
+                    alt={`Image ${index}`}
+                  />
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
         )}
       </Box>
     </Container>
